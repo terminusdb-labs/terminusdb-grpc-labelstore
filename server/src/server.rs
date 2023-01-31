@@ -126,6 +126,6 @@ pub async fn spawn_server<S: LabelStore + 'static>(
 ) -> Result<(), tonic::transport::Error> {
     Server::builder()
         .add_service(create_service(store))
-        .serve(format!("[::1]:{port}").parse().unwrap())
+        .serve(format!("[::]:{port}").parse().unwrap())
         .await
 }
