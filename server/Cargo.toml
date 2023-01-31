@@ -1,0 +1,13 @@
+[package]
+name = "terminusdb-grpc-labelstore-server"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+terminusdb-grpc-labelstore-proto = {path = "../proto"}
+terminus-store = {path = "../../terminusdb-store"}
+tonic = "0.8.3"
+tokio = {version = "1.0", features = ["full"]}
+clap = {version="4.0", features=["derive"]}

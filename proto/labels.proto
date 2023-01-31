@@ -1,0 +1,72 @@
+syntax = "proto3";
+package labels;
+
+service LabelService {
+    rpc GetLabels (GetLabelsRequest) returns (GetLabelsResponse);
+    rpc GetLabel (GetLabelRequest) returns (GetLabelResponse);
+    rpc CreateLabel (CreateLabelRequest) returns (CreateLabelResponse);
+    rpc SetLabel (SetLabelRequest) returns (SetLabelResponse);
+    rpc DeleteLabel (DeleteLabelRequest) returns (DeleteLabelResponse);
+}
+
+message LayerId {
+    fixed32 v1 = 1;
+    fixed32 v2 = 2;
+    fixed32 v3 = 3;
+    fixed32 v4 = 4;
+    fixed32 v5 = 5;
+}
+
+message Label {
+    string name = 1;
+    LayerId layer = 2;
+    uint64 version = 3;
+}
+
+message GetLabelsRequest {
+    string domain = 1;
+}
+
+message GetLabelsResponse {
+    repeated Label label = 1;
+}
+
+message GetLabelRequest {
+    string domain = 1;
+    string name = 2;
+}
+
+message GetLabelResponse {
+    LayerId layer = 1;
+    uint64 version = 2;
+}
+
+message CreateLabelRequest {
+    string domain = 1;
+    string name = 2;
+}
+
+message CreateLabelResponse {
+    bool has_been_created = 1;
+}
+
+message SetLabelRequest {
+    string domain = 1;
+    // this is kinda weird, why would we specify a layer id along with the version here? surely we just need a name + version?
+    Label label = 2;
+    LayerId new_layer = 3;
+}
+
+message SetLabelResponse {
+    bool has_been_set = 1;
+    uint64 version = 2;
+}
+
+message DeleteLabelRequest {
+    string domain = 1;
+    string name = 2;
+}
+
+message DeleteLabelResponse {
+    bool has_been_deleted = 1;
+}
