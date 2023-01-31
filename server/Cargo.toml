@@ -7,7 +7,7 @@ edition = "2021"
 
 [dependencies]
 terminusdb-grpc-labelstore-proto = {path = "../proto"}
-terminus-store = {path = "../../terminusdb-store"}
+terminus-store = { git="http://github.com/terminusdb/terminusdb-store", rev="f916464afa496568c2d921aedf66e3eda800d3d6" }
 tonic = "0.8.3"
 tokio = {version = "1.0", features = ["full"]}
 clap = {version="4.0", features=["derive"]}
