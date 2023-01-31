@@ -15,7 +15,6 @@ impl<S: LabelStore + 'static> proto::label_service_server::LabelService
         request: Request<proto::GetLabelRequest>,
     ) -> Result<Response<proto::GetLabelResponse>, Status> {
         let r = request.into_inner();
-        //eprintln!("get label {r:?}");
 
         if let Some(label) = self.store.get_label(&r.name).await? {
             Ok(Response::new(proto::GetLabelResponse::new(
@@ -31,7 +30,6 @@ impl<S: LabelStore + 'static> proto::label_service_server::LabelService
         &self,
         _request: Request<proto::GetLabelsRequest>,
     ) -> Result<Response<proto::GetLabelsResponse>, Status> {
-        eprintln!("get labels");
         let labels: Vec<_> = self
             .store
             .labels()
@@ -48,7 +46,6 @@ impl<S: LabelStore + 'static> proto::label_service_server::LabelService
         request: Request<proto::CreateLabelRequest>,
     ) -> Result<Response<proto::CreateLabelResponse>, Status> {
         let r = request.into_inner();
-        eprintln!("create label {r:?}");
         let has_been_created;
         if let Err(e) = self.store.create_label(&r.name).await {
             // invalidinput is given for labels that already exist
@@ -70,7 +67,6 @@ impl<S: LabelStore + 'static> proto::label_service_server::LabelService
         request: Request<proto::SetLabelRequest>,
     ) -> Result<Response<proto::SetLabelResponse>, Status> {
         let r = request.into_inner();
-        eprintln!("set label {r:?}");
 
         if let Some(label) = r.label {
             let inner_label = Label {
@@ -104,7 +100,6 @@ impl<S: LabelStore + 'static> proto::label_service_server::LabelService
         request: Request<proto::DeleteLabelRequest>,
     ) -> Result<Response<proto::DeleteLabelResponse>, Status> {
         let r = request.into_inner();
-        eprintln!("delete label {r:?}");
 
         if r.name.is_empty() {
             return Err(Status::invalid_argument("no label name given"));
